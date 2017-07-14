@@ -39,7 +39,9 @@ body {
 	background-color: #ffffff;
 	border-color: #5d60c6;
 }
-
+.blink{
+	background-color: ##ff0505;
+}
 .footer{
 
 }
