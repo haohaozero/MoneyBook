@@ -6,9 +6,18 @@ window.onload=function(){
 	loginbtn.addEventListener("click",function(event){
 		
 		if(username.value == ""){
+
 			if(event.cancelable){
 			event.preventDefault();
+			username.classList.add("blink");
 			}
+			else{
+				if(username.classList.contains("blink"))
+		{
+			username.classList.remove("blink");
+		}
+			}
+
 		}
 
 		if (password.value == ""){
@@ -16,7 +25,9 @@ window.onload=function(){
 			event.preventDefault();
 			}
 		}
-
+		
+		
 
 	})
+	
 }

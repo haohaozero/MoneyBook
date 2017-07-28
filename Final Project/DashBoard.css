@@ -29,6 +29,7 @@ h3{
 	position: relative;
 	margin-left: 40%;
 }
+<<<<<<< HEAD
 
 
 #Profile_btn{
@@ -63,6 +64,19 @@ h3{
 
 	height: 100%
 	
+=======
+.leftpiechartRetangle{
+	
+	width: 101%;
+	height: 75%;
+	border:2px solid #000;
+	border-right: 0px;
+}
+.piecharts
+{
+	width: 100%;
+	height: 100%;
+>>>>>>> 04ade232445db534952e14e7941a52b97b3c81db
 }
 .linechart
 {
