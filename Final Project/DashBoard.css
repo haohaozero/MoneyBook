@@ -1,3 +1,9 @@
+body{
+	background-image: url("img/computer-background.png");
+	background-color: #cccccc;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
 table
 {
 	
@@ -23,36 +29,53 @@ h3{
 	position: relative;
 	margin-left: 40%;
 }
-.leftpiechartRetangle{
-	
-	width: 101%;
-	height: 75%;
-	border:2px solid #000;
-	border-right: 0px;
-}
-.piecharts
-{
 
+
+#Profile_btn{
+	height: 20px;
+	width: 100px;
+}
+#LogOut_btn{
+	height: 20px;
+	width: 100px;
+}
+.banner{
+	float: left;
 	width: 100%;
-	height: 100%;
-
-
+	height: 5%;
 }
-.rightpiechartRetangle
+.header img
+{
+	width: 30%;
+	height: 20%;
+	position: relative;
+	margin-left: 35%;
+	margin-top: 10px;
+}
+.toolbarbutton
+{
+	position: relative;
+	float: right;
+}
+
+.piechart 
 {
 
-	width:100%;
-	height:75%;
-	border:2px solid #000;
-	border-left: 0px;
+	height: 100%
+	
+}
+.linechart
+{
+	width: 100%;
+	
 }
 .IE_InputRetangle
 {
-	width: 100%;
-	height: 100%;
-	border:1px solid #000;
-	/*position: relative;
-	margin-left: 50%;
-	margin-bottom: 80%;*/
+	position: relative;
+	background-color: #FFFFFF;
+	margin-bottom: 10%;
+}
+.MP_InputRetangle
+{
 
 }

@@ -1,75 +1,79 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="DashBoard.css">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script> 
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> 
 <script type="text/javascript" src="DashBoard.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
+
 </head>
 
 <body>
-	<h1>Money Book</h1>
-	<table class="columns">
-	<tr>
-		<td >
-			<div id="piechartRetangle" class="leftpiechartRetangle">
-				<div id="Sarah_chart_div" class="piecharts">
-			</div>
-		</td>
-		<td>
-			<div id="piechartRetangle" class="rightpiechartRetangle">
-				<div id="Anthony_chart_div" class="piecharts">
-			</div>
-		</td>
-	</tr>
+	<div class="toolbarbutton">
+		<button id="Profile_btn">Profile</button>
+		<button id="LogOut_btn">LogOut</button>
+	</div>
+	<div class="header">
 
-	<tr>
-		<td>
-			<div id="IE_InputRetangle" class="IE_InputRetangle">
-				<h2>Income/Expendit</h2>
-				
-					Amount: <input type="text" name="Amount"></br>
-	
-					<label>Type:</label>
-					<select name="Type">
-  						<option value="Income">Income</option>
-  						<option value="Expend">Expend</option>
-  						
-					</select></br>
-
-					<label>Category:</label>
-					<select name="Category">
-  						<option value="Clothes">Clothes</option>
-  						<option value="Food">Food</option>
-  						<option value="Fees">Fees</option>
-					</select></br>
-
-					
-					Date: <input type="date" id="datepicker" name="date">
-
-					
-			</div>
+			<img src="img/background2.png" alt="logo" />
 			
-		</td>
-		<td>
-			<div id="IE_InputRetangle" class="IE_InputRetangle">
-				<h3>Money Plan</h3>
+	</div>
+		<table>
+		<tr>
+			<td width="50%">
+				<div id="chartContainer" style="width: 100%; height: 300px">
+					
+				</div>
 
-			</div>
+			</td>		
+			<td>
+				<div id="chartContainers" style="height: 300px; width: 100%;">
+	</div>
+			</td>
 			
-		</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="IE_InputRetangle" class="IE_InputRetangle">
+					<h2>Income/Expendit</h2>
+					
+						Amount: <input type="text" name="Amount"></br>
 		
-	</tr>
-	
-	
-	
-	
-	
+						<label>Type:</label>
+						<select name="Type">
+	  						<option value="Income">Income</option>
+	  						<option value="Expend">Expend</option>
+	  						
+						</select></br>
+
+						<label>Category:</label>
+						<select name="Category">
+	  						<option value="Clothes">Clothes</option>
+	  						<option value="Food">Food</option>
+	  						<option value="Fees">Fees</option>
+						</select></br>
+
+						Date: <input type="Date" name="date">
+
+						
+				</div>
+				
+			</td>
+			<td>
+				<div id="MP_InputRetangle" class="MP_InputRetangle">
+					<h3>Money Plan</h3>
+
+				</div>
+				
+			</td>
+		</tr>
+
+		<tr >
+			<td colspan="2">
+				<div id="table_div"></div>
+			</td>
+		</tr>
 	</table>
 </body>
  </html>
