@@ -15,6 +15,9 @@ table{
 	border-style:double;
 	padding-bottom: 30px;
 }
+table tr{
+	width:100%;
+}
 
 a{
 	color:#ff0505;
@@ -22,6 +25,7 @@ a{
 
 p{
 	margin-left: 10%;
+	margin-right:10%;
 }
 
 p.selection{
@@ -45,10 +49,12 @@ p.selection{
 
 .register_confirm{
 	margin-left: 10px;
-	width:71%;
+	width:72%;
 	height:30px;
 }
-
+.monthly_income{
+	margin-left: 10px;
+}
 .submit{
 	margin-left: 50%;
 	align-content: center;
