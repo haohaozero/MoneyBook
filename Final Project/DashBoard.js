@@ -16,6 +16,8 @@ var goal_Input = document.getElementById("Goal");
 var goalTime_Input = document.getElementById("GoalTime");
 var submit_button =document.getElementById("Submit_BTN");
 var plan_button = document.getElementById("Plan_BTN");
+var profile_button = document.getElementById("Profile_BTN");
+var Logout_button = document.getElementById("LogOut_BTN");
 
 
   submit_button.addEventListener("click",function(event)
@@ -30,6 +32,17 @@ var plan_button = document.getElementById("Plan_BTN");
   {
     var goal_value = goal_Input.value;
     var goalTime_value = goalTime_Input.value;
+  })
+  Logout_button.addEventListener("click",function(event)
+  {
+
+        location.href = "main_page.html";
+    
+
+  })
+  profile_button.addEventListener("click",function(event)
+  {
+
   })
       
 }
