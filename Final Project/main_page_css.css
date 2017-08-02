@@ -1,7 +1,7 @@
 body {
 	
     background-color: #777575;
-    background-image: url("img/background1.png");
+    background-image: url("image/book_money.jpg");
     background-size:100% 100%;
     background-repeat: no-repeat;
 
@@ -15,7 +15,7 @@ html body h1{
 }
 .loginbox{
 	width:40%;
-	max-width: 500px;
+	max-width: 300px;
 	padding:15px;
 	margin-left: 30%;
 	border: ridge;
