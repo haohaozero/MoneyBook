@@ -6,6 +6,7 @@
 <script type="text/javascript" src="DashBoard.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 </head>
 
@@ -19,61 +20,57 @@
 			<img src="img/background2.png" alt="logo" />
 			
 	</div>
-		<table>
+		<table border="0">
 		<tr>
 			<td width="50%">
-				<div id="chartContainer" style="width: 100%; height: 300px">
-					
-				</div>
-
+				<div id="piechart" class="piechart" ></div>
 			</td>		
 			<td>
-				<div id="chartContainers" style="height: 300px; width: 100%;">
-	</div>
+				<div id="linechart" class="linechart" ></div>
 			</td>
-			
 		</tr>
 		<tr>
-			<td>
-				<div id="IE_InputRetangle" class="IE_InputRetangle">
-					<h2>Income/Expendit</h2>
-					
-						Amount: <input type="text" name="Amount"></br>
-		
-						<label>Type:</label>
-						<select name="Type">
+
+			<td height="20%" >
+				<form id="MP_InputRetangle" class="MP_InputRetangle">
+					<label>Money Saving Plan</label><br></br>
+					Goal:  <input type="text" name="Goal" id="Goal">$</br>
+					Time:  <input type="text" name="GoalTime" id="GoalTime">months</br>
+					<button id="Plan_BTN">Plan</button>
+					<input type="reset" value="Reset Form">
+				</form>
+				<form id="IE_InputRetangle" class="IE_InputRetangle">
+							<label>Income/Expendit</label><br></br>
+						
+						Amount:  <input type="text" name="Amount" id="Amount">$</br>
+						Type:  <select name="Type" id="Type">
 	  						<option value="Income">Income</option>
 	  						<option value="Expend">Expend</option>
-	  						
-						</select></br>
-
-						<label>Category:</label>
-						<select name="Category">
+	  						</select></br>
+						Category:  <select name="Category" id="Category">
 	  						<option value="Clothes">Clothes</option>
 	  						<option value="Food">Food</option>
 	  						<option value="Fees">Fees</option>
+	  						<option value="Luxury">Luxury</option>
+	  						<option value="Commodity">Commodity</option>
+	  						<option value="Other">Other</option>
 						</select></br>
+						Date:  <input type="Date" name="date" id="TransactionDate"></br>
+						<button id="Submit_BTN">Submit</button>	
+						<input type="reset" value="Reset Form">
 
-						Date: <input type="Date" name="date">
-
-						
-				</div>
-				
+						<!--<button id="Reset_BTN">Reset</button>	-->
+				</form>
 			</td>
-			<td>
-				<div id="MP_InputRetangle" class="MP_InputRetangle">
-					<h3>Money Plan</h3>
-
-				</div>
-				
-			</td>
+			<td><img src="img/slogans.jpg" id="slogan"></td>
 		</tr>
-
-		<tr >
+		<tr> 
 			<td colspan="2">
-				<div id="table_div"></div>
+				<div id="tablelist"></div>
 			</td>
 		</tr>
+
+		
 	</table>
 </body>
  </html>
