@@ -1,7 +1,7 @@
 body {
 	
     background-color: #777575;
-    background-image: url("image/bookmoney.jpg");
+    background-image: url("img/background1.png");
     background-size:100% 100%;
     background-repeat: no-repeat;
 
@@ -14,13 +14,13 @@ html body h1{
 	height:100%;
 }
 .loginbox{
-	width:30%;
-	max-width: 300px;
+	width:40%;
+	max-width: 500px;
 	padding:15px;
 	margin-left: 30%;
 	border: ridge;
 	border-color: #0b12ef;
-	background: url("image/book_money.jpg");
+	background: url("img/banner.png");
 
 }
 .login-header{
@@ -29,11 +29,10 @@ html body h1{
 }
 .login-username{
   width: 70%;
-  max-width: 70px;
+  max-width: 200px;
   margin-bottom: 0px;
   margin-top: 4px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  
 }
 .login-password{
 	margin-top: 10px;
