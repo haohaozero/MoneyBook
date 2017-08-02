@@ -1,6 +1,6 @@
 body{
-	background-image: url("img/computer-background.png");
-	background-color: #cccccc;
+	/*background-image: url("img/background.png");*/
+	background-color: #FFFFFF;
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -29,7 +29,6 @@ h3{
 	position: relative;
 	margin-left: 40%;
 }
-<<<<<<< HEAD
 
 
 #Profile_btn{
@@ -58,38 +57,54 @@ h3{
 	position: relative;
 	float: right;
 }
-
-.piechart 
+.piechart
 {
+	width: 80%; 
+	height: 300px;
+	margin-left: 20%;
 
-	height: 100%
-	
-=======
-.leftpiechartRetangle{
-	
-	width: 101%;
-	height: 75%;
-	border:2px solid #000;
-	border-right: 0px;
-}
-.piecharts
-{
-	width: 100%;
-	height: 100%;
->>>>>>> 04ade232445db534952e14e7941a52b97b3c81db
 }
 .linechart
 {
-	width: 100%;
-	
+	width: 80%; 
+	height: 300px;
+
 }
 .IE_InputRetangle
 {
 	position: relative;
-	background-color: #FFFFFF;
-	margin-bottom: 10%;
+	background-color:#FFFFFF  ;
+	width: 40%;
+	height: 100%;
+	float: right;
+	padding: 10px;
+
+	
 }
 .MP_InputRetangle
 {
+	position: relative;
+	background-color: #FFFFFF;
+	float: right;
+	width: 35%;
+	height: 100%;
+	padding: 10px;
+	
+}
+#slogan
+{
+	width: 80%;
+	height: 50%;
+}
+#tablelist
+{
+	position: relative;
+	margin-left: 10%;
+
+	
 
 }
+.google-visualization-table-td 
+{
+    text-align: center;
+ }
