@@ -35,23 +35,27 @@ window.onload=function(){
 			password.classList.remove("blink");
 		}
 		}
+		
 			if(ready){
 				var data={username: input_name, password: input_pw};
 			$.post( "http://localhost/money_book_be/login.php", data,
 			  function( result ) {
-			    console.log(result.result);
-			    if(event.cancelable){
-					event.preventDefault();
-		}
-			    if(result.result){
+			    //console.log(result);
+			    var pass = JSON.parse(result);
+			    // console.log(pass.result);
+
+			    if(pass.result==true){
+			    	console.log("getting to next page");
 			    	window.location.href = "Dashboard.html#"+input_name;
 			    }   
 			    else{
-			    	if(event.cancelable){
-					event.preventDefault();
-		}
+					password.value = "";
+					password.placeholder = "incorrect password";
 			    } 
 			});
+		
+			    
+			}
 			
 			// console.log(data);
 			// $.ajax({ url: 'money_book_be/login.php',
@@ -62,7 +66,7 @@ window.onload=function(){
    //   	 	alert(result);
    //   	 }});
 				
-		}
+		
 		
 		
 
