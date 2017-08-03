@@ -44,7 +44,7 @@ window.onload=function(){
 					event.preventDefault();
 		}
 			    if(result.result){
-
+			    	window.location.href = "Dashboard.html#"+input_name;
 			    }   
 			    else{
 			    	if(event.cancelable){
