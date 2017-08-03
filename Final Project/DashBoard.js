@@ -1,12 +1,15 @@
 
 window.onload = function () 
 {
+  
   //Load the table using google charts plugin
    google.charts.load('current', {'packages':['table']});
    google.charts.setOnLoadCallback(drawTable);
+   google.charts.load('current', {packages: ['corechart', 'line']});
+   google.charts.setOnLoadCallback(drawLineChart);
   //Load chart table end=--------------------------------------------------------------------------------
   drawPieChart();
-  drawLineChart();
+ 
 
 var type_Input = document.getElementById("Type");
 var amount_Input = document.getElementById("Amount");
@@ -18,7 +21,7 @@ var submit_button =document.getElementById("Submit_BTN");
 var plan_button = document.getElementById("Plan_BTN");
 var profile_button = document.getElementById("Profile_BTN");
 var Logout_button = document.getElementById("LogOut_BTN");
-
+var planform = document.getElementById("MP_InputRetangle");
 
   submit_button.addEventListener("click",function(event)
   {
@@ -28,23 +31,41 @@ var Logout_button = document.getElementById("LogOut_BTN");
     console.log(transactionDate_Input.value);
     
   });
+
   plan_button.addEventListener("click",function(event)
   {
     var goal_value = goal_Input.value;
     var goalTime_value = goalTime_Input.value;
+    
+    location.href = "main_page.html";
   })
   Logout_button.addEventListener("click",function(event)
   {
 
         location.href = "main_page.html";
-    
+   
 
   })
   profile_button.addEventListener("click",function(event)
   {
-
+    ajax_post();
   })
       
+}
+function ajax_post()
+{
+  // Create our XMLHttpRequest object
+    $.ajax({
+      url: "http://localhost/BackEnd.php",
+      type: "GET",
+      async: true,
+      data:  "",
+      success: function(data){
+          var resultObj = JSON.parse(data);
+          console.log(resultObj);
+          
+      }
+    })
 }
 function drawPieChart()
 {
@@ -82,94 +103,36 @@ function drawPieChart()
 }
 function drawLineChart()
 {
-  var linechart = new CanvasJS.Chart("linechart",
-    {
-      zoomEnabled: false,
-                        animationEnabled: true,
-      title:{text: "Income Vs Spends" },
-      axisY2:
-      {
-        valueFormatString:"0.0 bn",
-        maximum: 1.2,
-        interval: .2,
-        interlacedColor: "#F5F5F5",
-        gridColor: "#D7D7D7",      
-        tickColor: "#D7D7D7"                
-      },
-      theme: "theme2",
-      toolTip:{shared: true},
-      legend:
-      {
-        verticalAlign: "bottom",
-        horizontalAlign: "center",
-        fontSize: 15,
-        fontFamily: "Lucida Sans Unicode"
-      },
-      data: 
-      [
-        {        
-          type: "line",
-          lineThickness:3,
-          axisYType:"secondary",
-          showInLegend: true,           
-          name: "Income", 
-          dataPoints: [
-          { x: new Date(2001, 0), y: 0 },
-          { x: new Date(2002, 0), y: 0.001 },
-          { x: new Date(2003, 0), y: 0.01},
-          { x: new Date(2004, 0), y: 0.05 },
-          { x: new Date(2005, 0), y: 0.1 },
-          { x: new Date(2006, 0), y: 0.15 },
-          { x: new Date(2007, 0), y: 0.22 },
-          { x: new Date(2008, 0), y: 0.38  },
-          { x: new Date(2009, 0), y: 0.56 },
-          { x: new Date(2010, 0), y: 0.77 },
-          { x: new Date(2011, 0), y: 0.91 },
-          { x: new Date(2012, 0), y: 0.94 }
-          ]
-        },
-        {        
-          type: "line",
-          lineThickness:3,
-          showInLegend: true,           
-          name: "Spends",
-          axisYType:"secondary",
-          dataPoints: 
-          [
-            { x: new Date(2001, 00), y: 0.18 },
-            { x: new Date(2002, 00), y: 0.2 },
-            { x: new Date(2003, 0), y: 0.25},
-            { x: new Date(2004, 0), y: 0.35 },
-            { x: new Date(2005, 0), y: 0.42 },
-            { x: new Date(2006, 0), y: 0.5 },
-            { x: new Date(2007, 0), y: 0.58 },
-            { x: new Date(2008, 0), y: 0.67  },
-            { x: new Date(2009, 0), y: 0.78},
-            { x: new Date(2010, 0), y: 0.88 },
-            { x: new Date(2011, 0), y: 0.98 },
-            { x: new Date(2012, 0), y: 1.04 }
-          ]
-        },
-      ],
-      legend: 
-      {
-            cursor:"pointer",
-            itemclick : function(e)
-            {
-              if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) 
-              {
-              e.dataSeries.visible = false;
-              }
-              else 
-              {
-                e.dataSeries.visible = true;
-              }
-              linechart.render();
-            }
-        }
-    });
+  
 
-    linechart.render();
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'X');
+      data.addColumn('number', 'Income');
+      data.addColumn('number','Spends');
+      data.addRows([
+        ['0', 0, 1],   ['1', 10, 20],  ['2', 23, 25],  ['3', 17, 8],  ['4', 18, 20],  ['5', 9, 20],
+        ['6', 11, 20],  ['7', 27, 10],  ['8', 33, 20],  ['9', 40, 18],  ['10', 32, 17], ['11', 35, 10],
+        ['12', 30, 20]
+      ]);
+      
+      
+        
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+
+        },
+        vAxis: {
+          title: 'Amount'
+
+        },
+        backgroundColor: '#FFFFFF',
+       
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+      chart.draw(data, options);
 
 }
 function drawTable() 
