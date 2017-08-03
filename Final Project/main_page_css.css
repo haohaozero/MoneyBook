@@ -8,7 +8,7 @@ body {
 }
 	
 html body h1{
-	margin-left: 30%;
+	margin-left: 40%;
 }
 .header img{
 	height:100%;
@@ -17,7 +17,8 @@ html body h1{
 	width:40%;
 	max-width: 300px;
 	padding:15px;
-	margin-left: 30%;
+	margin-left: 40%;
+	
 	border: ridge;
 	border-color: #0b12ef;
 	background: url("img/banner.png");
@@ -50,7 +51,7 @@ html body h1{
 	border-color: #5d60c6;
 }
 .blink{
-	background-color: ##ff0505;
+	border-color: #FE0101;
 }
 .footer{
 
