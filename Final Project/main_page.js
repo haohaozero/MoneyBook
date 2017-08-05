@@ -4,6 +4,7 @@ window.onload=function(){
 	var register = document.getElementById("registerbtn");
 	var username = document.getElementById("username");
 	var password = document.getElementById("password");
+	
 	loginbtn.addEventListener("click",function(event){
 
 		var input_name = username.value;

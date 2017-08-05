@@ -68,6 +68,9 @@ p.selection{
 	background-color: #ffffff;
 	border-color: #5d60c6;
 }
+.blink{
+	border-color: #FE0101;
+}
 .cancel{
 	border-radius: 5px;
 	background-color: #ffffff;
