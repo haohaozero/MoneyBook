@@ -1,7 +1,8 @@
 
 window.onload = function () 
 {
-  
+  var u = window.location.hash.substring(1);
+  console.log(u);
   //Load the table using google charts plugin
    google.charts.load('current', {'packages':['table']});
    google.charts.setOnLoadCallback(drawTable);
@@ -62,25 +63,19 @@ function getTableInfo()
       dataType: "json",
 
       success: function(data)
-      {
-          $.each(data, function(i) 
-           {
-              console.log(data[i]);
-
-    		});
-          
+      {  
+        var resultObj = JSON.parse(data);
+        console.log(resultObj);
       },
       error: function(e){
         console.log(e);
       }
     })
-
-
 }
 function submit_IE()
 {
     var check = "1";
-    var usernames = "John"
+    var usernames = "John";
     
   //checker 1 means to insert transaction into database
     var datas = {checker:check,username:usernames,type: type_Input.value,category:category_Input.value,amount:amount_Input.value,date_of_spend: transactionDate_Input.value}
@@ -89,11 +84,12 @@ function submit_IE()
       type: "POST",
       async: true,
       data: datas,
+      cache: false,
       dataType: "json",
       success: function(data)
       {
           var resultObj = JSON.parse(data);
-         // console.log(resultObj);
+          console.log(resultObj);
            
           
       },
@@ -140,6 +136,11 @@ function drawPieChart()
 }
 function drawTable() 
 {
+	/*setInterval(function(){
+	$.get( "anyChanges.php", function( data ) {
+  //do something with the returned data. Maybe update a table or something
+	});
+	}, 3000);*/
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Type');
         data.addColumn('number', 'Amount');
