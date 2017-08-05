@@ -5,10 +5,9 @@ window.onload = function ()
   //Load the table using google charts plugin
    google.charts.load('current', {'packages':['table']});
    google.charts.setOnLoadCallback(drawTable);
-   google.charts.load('current', {packages: ['corechart', 'line']});
-   google.charts.setOnLoadCallback(drawLineChart);
+ 
   //Load chart table end=--------------------------------------------------------------------------------
-  drawPieChart();
+   drawPieChart();
  
 
 var type_Input = document.getElementById("Type");
@@ -25,11 +24,9 @@ var planform = document.getElementById("MP_InputRetangle");
 
   submit_button.addEventListener("click",function(event)
   {
-    console.log(amount_Input.value);
-    console.log(type_Input.value);
-    console.log(category_Input.value);
-    console.log(transactionDate_Input.value);
-    
+    //submit_IE();
+    getTableInfo();
+  
   });
 
   plan_button.addEventListener("click",function(event)
@@ -48,25 +45,65 @@ var planform = document.getElementById("MP_InputRetangle");
   })
   profile_button.addEventListener("click",function(event)
   {
-    ajax_post();
+    
   })
-      
-}
-function ajax_post()
+ 
+function getTableInfo()
 {
-  // Create our XMLHttpRequest object
-    $.ajax({
+	var check = "0";
+	var usernames ="John";
+	var datas = {checker:check,username:usernames}
+
+	$.ajax({
       url: "http://localhost/BackEnd.php",
       type: "GET",
       async: true,
-      data:  "",
-      success: function(data){
-          var resultObj = JSON.parse(data);
-          console.log(resultObj);
+      data: datas,
+      dataType: "json",
+
+      success: function(data)
+      {
+          $.each(data, function(i) 
+           {
+              console.log(data[i]);
+
+    		});
           
+      },
+      error: function(e){
+        console.log(e);
       }
     })
+
+
 }
+function submit_IE()
+{
+    var check = "1";
+    var usernames = "John"
+    
+  //checker 1 means to insert transaction into database
+    var datas = {checker:check,username:usernames,type: type_Input.value,category:category_Input.value,amount:amount_Input.value,date_of_spend: transactionDate_Input.value}
+    $.ajax({
+      url: "http://localhost/BackEnd.php",
+      type: "POST",
+      async: true,
+      data: datas,
+      dataType: "json",
+      success: function(data)
+      {
+          var resultObj = JSON.parse(data);
+         // console.log(resultObj);
+           
+          
+      },
+      error: function(e){
+        console.log(e);
+      }
+    })
+  }     
+}
+
 function drawPieChart()
 {
     var chart = new CanvasJS.Chart("piechart",
@@ -99,40 +136,6 @@ function drawPieChart()
   });
 
   chart.render();
-
-}
-function drawLineChart()
-{
-  
-
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'X');
-      data.addColumn('number', 'Income');
-      data.addColumn('number','Spends');
-      data.addRows([
-        ['0', 0, 1],   ['1', 10, 20],  ['2', 23, 25],  ['3', 17, 8],  ['4', 18, 20],  ['5', 9, 20],
-        ['6', 11, 20],  ['7', 27, 10],  ['8', 33, 20],  ['9', 40, 18],  ['10', 32, 17], ['11', 35, 10],
-        ['12', 30, 20]
-      ]);
-      
-      
-        
-
-      var options = {
-        hAxis: {
-          title: 'Time'
-
-        },
-        vAxis: {
-          title: 'Amount'
-
-        },
-        backgroundColor: '#FFFFFF',
-       
-      };
-
-      var chart = new google.visualization.LineChart(document.getElementById('linechart'));
-      chart.draw(data, options);
 
 }
 function drawTable() 

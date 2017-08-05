@@ -5,7 +5,7 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> 
 <script type="text/javascript" src="DashBoard.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -21,14 +21,12 @@
 			<img src="img/background2.png" alt="logo" />
 			
 	</div>
-		<table border="0">
+		<table border="1">
 		<tr>
-			<td width="50%">
-				<div id="piechart" class="piechart" ></div>
+			<td colspan="2" height="300px">
+				<div id="piechart" class="piechart" style="width: 80%"></div>
 			</td>		
-			<td>
-				<div id="linechart" class="linechart" ></div>
-			</td>
+			
 		</tr>
 		<tr>
 
@@ -44,12 +42,12 @@
 				<form id="IE_InputRetangle" class="IE_InputRetangle">
 							<label>Income/Expendit</label><br></br>
 						
-						Amount:  <input type="text" name="Amount" id="Amount">$</br>
-						Type:  <select name="Type" id="Type">
+						Amount:  <input type="text" name="amount" id="Amount">$</br>
+						Type:  <select name="type" id="Type">
 	  						<option value="Income">Income</option>
 	  						<option value="Expend">Expend</option>
 	  						</select></br>
-						Category:  <select name="Category" id="Category">
+						Category:  <select name="category" id="Category">
 	  						<option value="Clothes">Clothes</option>
 	  						<option value="Food">Food</option>
 	  						<option value="Fees">Fees</option>
@@ -57,8 +55,8 @@
 	  						<option value="Commodity">Commodity</option>
 	  						<option value="Other">Other</option>
 						</select></br>
-						Date:  <input type="Date" name="date" id="TransactionDate"></br>
-						<button id="Submit_BTN">Submit</button>	
+						Date:  <input type="Date" name="date_of_spend" id="TransactionDate"></br>
+						<input type="button" id="Submit_BTN" value="Submit"></input>	
 						<input type="reset" value="Reset Form">
 
 				</form>

@@ -59,17 +59,11 @@ h3{
 }
 .piechart
 {
-	width: 80%; 
 	height: 300px;
-	margin-left: 20%;
-
+	position: relative;
+	margin-left: 10%;
 }
-.linechart
-{
-	width: 80%; 
-	height: 300px;
 
-}
 .IE_InputRetangle
 {
 	position: relative;
