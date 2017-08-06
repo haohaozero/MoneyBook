@@ -18,6 +18,9 @@ window.onload=function(){
 		var input_mincome = month_income.value;
 		var input_dob= dob.value;
 
+		var input_gender = document.querySelector('input[name = "gender"]:checked').value;
+		console.log(input_gender);
+
 		var ready = true;
 		//check username is filled
 		if(username.value == ""){
@@ -48,7 +51,7 @@ window.onload=function(){
 		}
 		}
 			console.log(validatedate(dob.value));
-		 if(dob.value=="" || !validatedate(dob.value)){
+		 if(dob.value==""){ //|| !validatedate(dob.value)){
 		 		if(event.cancelable){
 		 		event.preventDefault();
 		 		}
@@ -154,15 +157,23 @@ window.onload=function(){
 		
 		if (ready) {
 			//send create query
-			var data={username: input_name, password: input_pw};
+			var data={username: input_name, password: input_pw, gender: input_gender, dob: input_dob, mincome: input_mincome};
 			$.post( "http://localhost/money_book_be/register.php", data,
 			  function( result ) {
-			    //console.log(result);
-			    var outcome = JSON.parse(result);
-			    console.log(outcome.result);
+			    console.log(result);
+			    if(result == "success"){
+			    	window.location.href="main_page.html";
+			    }
+			    else if(result=="user_exist"){
+			    	if(event.cancelable){
+					event.preventDefault();
+					}
+					username.value="";
+					alert("username exist");
+			    }
 			});
 			    // console.log(pass.result);
-			window.location.href="main_page.html";
+			
 		}
 	});
 
