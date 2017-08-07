@@ -1,9 +1,12 @@
 body {
 	
     background-color: #777575;
-    background-image: url("image/bookmoney.jpg");
+    background-image: url("image/background.png");
     background-size:100% 100%;
+   
     background-repeat: no-repeat;
+    
+
 
 }
 	
@@ -20,7 +23,7 @@ html body h1{
 	margin-left: 40%;
 	
 	border: ridge;
-	border-color: #0b12ef;
+	/*border-color: #0b12ef;*/
 	background: url("img/banner.png");
 
 }
