@@ -13,7 +13,34 @@ if ($conn->connect_error)
 }
 //checker use to check what to do 
 $checker = $_REQUEST['checker'];
+if ($checker == "2")
+{
+  $CM_h = $_GET['cm'];
+  $username_h = $_GET['username'];
+  //SELECT * FROM `spend_data` WHERE MONTH(`date_of_spend`) = 8 And `type`='Expense'
+   $getChart  = "SELECT * FROM spend_data WHERE MONTH((date_of_spend))=('".$CM_h."')"."AND (type)='Expense'";
 
+   $result=mysqli_query($conn,$getChart);
+    $array = array(); 
+   
+   if (mysqli_num_rows($result) > 0) 
+   {
+      // output data of each row
+      while($row = mysqli_fetch_assoc($result)) 
+      {
+        
+        $array [] = $row;
+
+      }
+       echo json_encode($array);
+  } 
+  else 
+  {
+     
+  }
+
+
+}
 //Insert user Transaction intot table---------------------------------------------------
 if ($checker == "1")
 {

@@ -21,31 +21,26 @@
 			<img src="img/background2.png" alt="logo" />
 			
 	</div>
-		<table border="1">
+	
+		<table border="0">
 		<tr>
-			<td colspan="2" height="300px">
-				<div id="piechart" class="piechart" style="width: 80%"></div>
+			<td colspan="3" height="300px">
+				<div id="piechart" class="piechart" style="width: 80%; margin-top: 3%;">
+					
+				</div>
 			</td>		
 			
 		</tr>
 		<tr>
 
-			<td height="20%" >
-				<form id="MP_InputRetangle" class="MP_InputRetangle">
-					<label>Money Saving Plan</label><br></br>
-					Goal:  <input type="text" name="Goal" id="Goal">$</br>
-					Time:  <input type="text" name="GoalTime" id="GoalTime">months</br>
-				<!--<a href = "money_plan.html">--><input type="button" id="Plan_BTN" value="Plan"></input><!--</a>-->
-					<input type="reset" value="Reset Form">
-				</form>
-				
+			<td height="20%" width="28%">
 				<form id="IE_InputRetangle" class="IE_InputRetangle">
-							<label>Income/Expendit</label><br></br>
-						
+							
+						<label style="margin-left: 20%;">Income/Expendit</label><br></br>
 						Amount:  <input type="text" name="amount" id="Amount">$</br>
 						Type:  <select name="type" id="Type">
 	  						<option value="Income">Income</option>
-	  						<option value="Expend">Expend</option>
+	  						<option value="Expense">Expense</option>
 	  						</select></br>
 						Category:  <select name="category" id="Category">
 	  						<option value="Clothes">Clothes</option>
@@ -57,15 +52,36 @@
 						</select></br>
 						Date:  <input type="Date" name="date_of_spend" id="TransactionDate"></br>
 						<input type="button" id="Submit_BTN" value="Submit"></input>	
-						<input type="reset" value="Reset Form">
-
+						<input type="reset" id="IE_Reset" value="Reset Form">
 				</form>
 			</td>
-			<td><img src="img/slogans.jpg" id="slogan"></td>
+			
+			<td width="20%">
+					<form id="MP_InputRetangle" class="MP_InputRetangle">
+					<label style="margin-left: 20%;">Money Saving Plan</label><br></br>
+					Goal:  <input type="text" name="Goal" id="Goal">$</br>
+					Time:  <input type="text" name="GoalTime" id="GoalTime">months</br>
+				<input type="button" id="Plan_BTN" value="Plan"></input>
+					<input type="reset" id="MP_Reset" value="Reset Form">
+				</form>
+
+				
+			</td>
+
+			<td width="60%">
+			<div id="myProgressContainer">
+				<label style="margin-left:35%;">Monthly Plan Status</label>
+				<div id="myProgress">
+					<div id="myBar">10%</div>
+			</div>
+			<label style="margin-left:35%; visibility:hidden;">No Plan Availiable</label>
+			</td>
 		</tr>
 		<tr> 
-			<td colspan="2">
-				<div id="tablelist"></div>
+			<td colspan="3">
+				<div id="tablelist">
+				
+				</div>
 			</td>
 		</tr>
 
