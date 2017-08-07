@@ -5,8 +5,8 @@ window.onload = function ()
   console.log(username);
 
   var food, commodity, clothes, luxury, utility, other,total;
-  var input_name = "John";
-  // var input_name = username;
+  // var input_name = "John";
+  var input_name = username;
 
   var exit_btn = document.getElementById("exit_btn");
 
@@ -23,6 +23,41 @@ window.onload = function ()
     var commodity_holder=0;
     var other_holder=0;
     var sum=0; 
+          // var data_food = new google.visualization.DataTable();
+          // data_food.addColumn('string', 'Type');
+          // data_food.addColumn('string', 'Amount');
+          // data_food.addColumn('string', 'Category');
+          // data_food.addColumn('string', 'Date');
+          // var data_commodity = new google.visualization.DataTable();
+          // data_commodity.addColumn('string', 'Type');
+          // data_commodity.addColumn('string', 'Amount');
+          // data_commodity.addColumn('string', 'Category');
+          // data_commodity.addColumn('string', 'Date');
+          // var data_clothes = new google.visualization.DataTable();
+          // data_clothes.addColumn('string', 'Type');
+          // data_clothes.addColumn('string', 'Amount');
+          // data_clothes.addColumn('string', 'Category');
+          // data_clothes.addColumn('string', 'Date');
+          // var data_luxury = new google.visualization.DataTable();
+          // data_luxury.addColumn('string', 'Type');
+          // data_luxury.addColumn('string', 'Amount');
+          // data_luxury.addColumn('string', 'Category');
+          // data_luxury.addColumn('string', 'Date');
+          // var data_food = new google.visualization.DataTable();
+          // data_food.addColumn('string', 'Type');
+          // data_food.addColumn('string', 'Amount');
+          // data_food.addColumn('string', 'Category');
+          // data_food.addColumn('string', 'Date');
+          // var data_food = new google.visualization.DataTable();
+          // data_food.addColumn('string', 'Type');
+          // data_food.addColumn('string', 'Amount');
+          // data_food.addColumn('string', 'Category');
+          // data_food.addColumn('string', 'Date');
+          var col_type;
+          var col_amount;
+          var col_category;
+          var col_date;
+          
   var data={username: input_name};
       $.post( "http://localhost/money_book_be/get_money_plan.php", data,
         function( result ) {
@@ -35,10 +70,17 @@ window.onload = function ()
           utility = parseInt(pass.utility);
           other = parseInt(pass.other);
           total = parseInt(pass.month_total);
-          var dat2s= {username:input_name};
-          $.post( "http://localhost/money_book_be/get_spend_total.php", data,
+          var TD = new Date();
+          var CM = (TD.getMonth()+1);
+          console.log(CM);
+          var data2= {username:input_name, cm: CM};
+          $.post( "http://localhost/money_book_be/get_spend_total.php", data2,
         function( result ) {
+
+          if(result!=null){
+            // console.log(result);
           var returndata = JSON.parse(result);
+          
           for (var i=0;i<returndata.length;i++)
           {
             
@@ -72,6 +114,7 @@ window.onload = function ()
           console.log(commodity_holder);
           console.log(other_holder);
           console.log(sum);
+        }
             var total_left = total-sum;
             console.log("total_left:"+total_left);
             //Draw the graph
