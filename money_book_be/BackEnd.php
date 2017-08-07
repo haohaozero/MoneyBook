@@ -35,7 +35,8 @@ if ($checker == "3")
   } 
   else 
   {
-     
+    $array=0;
+     echo json_encode($array);
   }
 
 }
@@ -46,7 +47,7 @@ if ($checker == "2")
   $CM_h = $_GET['cm'];
   $username_h = $_GET['username'];
   //SELECT * FROM `spend_data` WHERE MONTH(`date_of_spend`) = 8 And `type`='Expense'
-   $getChart  = "SELECT * FROM spend_data WHERE MONTH((date_of_spend))=('".$CM_h."')"."AND (type)='Expense'";
+   $getChart  = "SELECT * FROM spend_data WHERE MONTH((date_of_spend))=('".$CM_h."')"."AND (type)='Expense'"."AND (username)=('".$username_h."')";
 
    $result=mysqli_query($conn,$getChart);
     $array = array(); 
@@ -64,6 +65,8 @@ if ($checker == "2")
   } 
   else 
   {
+    $arrary=0;
+    echo json_encode($array);
      
   }
 

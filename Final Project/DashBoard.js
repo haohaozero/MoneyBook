@@ -184,12 +184,13 @@ window.onload = function ()
   				goalTime_Input.style.borderColor = "";
 				goalTime_Input.style.backgroundColor = "";
 			 	plan();
+			 	location.href = "money_plan.html";
   			}
   		}
   			
   	}
     
-    //location.href = "main_page.html";
+    location.href = "main_page.html";
    
 
 
@@ -220,12 +221,12 @@ window.onload = function ()
 function move() 
 {
     var elem = document.getElementById("myBar"); 
+    var elems = document.getElementById("myProgress");
+    var elemss = document.getElementById("NoPlanLabel");
     var width = 0;
-
     var TD = new Date();
 	var CM = (TD.getMonth()+1);
 	var check = "2";
-	var usernames ="John";
 	var datas = {checker:check,username:user,cm:CM}
 	var sum=0;
 	$.ajax({
@@ -273,7 +274,7 @@ function move()
         	sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
 
         		 var check2 ="3";
-          		 var datas2 = {checker:check2,username:usernames}
+          		 var datas2 = {checker:check2,username:user}
           		 var money=0;
 		          $.ajax({
 			      url: "http://localhost/money_book_be/BackEnd.php",
@@ -286,7 +287,11 @@ function move()
 			      success: function(returndata)
 			      { 
 		     		
-		     		
+		     		if(returndata==0)
+		     		{
+		     			elems.style.visibility="hidden";
+		     			elemss.style.visibility="visible";
+		     		}
 		        	for (var i=0;i<returndata.length;i++)
 		        	{	
 		        		money=parseInt(returndata[i].monthly_save);
@@ -348,6 +353,7 @@ function move()
 				  error: function(j,t,e)
 				  {
 					console.log(j); 
+					width=0;
 				  }
 				});
         	
@@ -365,7 +371,7 @@ function move()
 }
 function plan()
 {
-	var usernames ="John";
+	
     var today= new Date();
    	var today_date= today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   //checker 1 means to insert transaction into database
@@ -392,7 +398,7 @@ function plan()
 function submit_IE()
 {
     var check = "1";
-    var usernames = "John";
+   
     
   //checker 1 means to insert transaction into database
     var datas = {checker:check,username:user,type: type_Input.value,category:category_Input.value,amount:amount_Input.value,date_of_spend: transactionDate_Input.value}
@@ -421,7 +427,7 @@ function drawPieChart()
 	var TD = new Date();
 	var CM = (TD.getMonth()+1);
 	var check = "2";
-	var usernames ="John";
+	
 	var datas = {checker:check,username:user,cm:CM}
 	$.ajax({
 	      url: "http://localhost/money_book_be/BackEnd.php",
@@ -431,88 +437,122 @@ function drawPieChart()
 	      cache: false,
 	      dataType : "json",
 	   	  
-	      success: function(returndata)
-	      { 
-     		var clothes_holder=0;
-     		var food_holder=0;
-     		var fees_holder=0;
-     		var luxury_holder=0;
-     		var commodity_holder=0;
-     		var other_holder=0;
-     		var sum=0;
-        	for (var i=0;i<returndata.length;i++)
-        	{
-        		
-        		switch(returndata[i].category)
-        		{
-        			case 'Clothes':
-        						clothes_holder+=parseInt(returndata[i].amount);
-        				break;
-        			case 'Food':
-        						food_holder+=parseInt(returndata[i].amount);
-        				break;
-        			case 'Fees':
-        						fees_holder+=parseInt(returndata[i].amount);
-        				break;
-        			case 'Luxury':
-        						luxury_holder+=parseInt(returndata[i].amount);
-        				break;
-        			case 'Commodity':
-        						commodity_holder+=parseInt(returndata[i].amount);
-        				break;
-        			case 'Other':
-        						other_holder+=parseInt(returndata[i].amount);
-        				break;
-        			
+	    success: function(returndata)
+	    { 
+	    	
+	      	if(returndata==0)
+	      	{
 
-        		}
+	      		var chart = new CanvasJS.Chart("piechart",
+				{
+				    title:{ text: "Current Month Summary"},
+				    exportFileName: "Pie Chart",
+				    exportEnabled: true,
+				    animationEnabled: true,
+				    legend:
+				    {
+				      verticalAlign: "bottom",
+				      horizontalAlign: "center"
+				    },
 
-        		
-        	}
-        	sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
-        	var chart = new CanvasJS.Chart("piechart",
-			{
-			    title:{ text: "Current Month Summary"},
-			    exportFileName: "Pie Chart",
-			    exportEnabled: true,
-			    animationEnabled: true,
-			    legend:
-			    {
-			      verticalAlign: "bottom",
-			      horizontalAlign: "center"
-			    },
-
-			    data: 
-			    [{       
-			      type: "pie",
-			      showInLegend: true,
-			      toolTipContent: "{name}: <strong>{y}%</strong>",
-			      indexLabel: "{name} {y}%",
-			      dataPoints: 
-			      [
-			        {  y: Math.round((food_holder/sum*100)), name: "Food", exploded: true},
-			        {  y: Math.round((commodity_holder/sum*100)), name: "Commodity"},
-			        {  y: Math.round((clothes_holder/sum*100)), name: "Clothes"},
-			        {  y: Math.round((luxury_holder/sum*100)), name: "Luxury"},
-			        {  y: Math.round((fees_holder/sum*100)),  name: "Utility Fee"},
-			        {  y: Math.round((other_holder/sum*100)),  name: "Others"}
-			      ]}],
+				    data: 
+				    [{       
+				      type: "pie",
+				      showInLegend: true,
+				      toolTipContent: "{name}: <strong>{y}%</strong>",
+				      indexLabel: "{name} {y}%",
+				      dataPoints: 
+				      [
+				        {  y: 100, name: "No Date Available"}
+				       
+				     ]}],
 			    
-			  });
-			  chart.render();
-			},
-			 error: function(j,t,e)
-			{
-				console.log(j); 
+			  	});
+			  	chart.render();
+	      	}
+	      	else
+	      	{
+	     		var clothes_holder=0;
+	     		var food_holder=0;
+	     		var fees_holder=0;
+	     		var luxury_holder=0;
+	     		var commodity_holder=0;
+	     		var other_holder=0;
+	     		var sum=0;
+	        	for (var i=0;i<returndata.length;i++)
+	        	{
+	        		
+	        		switch(returndata[i].category)
+	        		{
+	        			case 'Clothes':
+	        						clothes_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			case 'Food':
+	        						food_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			case 'Fees':
+	        						fees_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			case 'Luxury':
+	        						luxury_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			case 'Commodity':
+	        						commodity_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			case 'Other':
+	        						other_holder+=parseInt(returndata[i].amount);
+	        				break;
+	        			
+
+	        		}
+
+	        		
+	        	}
+        		sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
+	        	var chart = new CanvasJS.Chart("piechart",
+				{
+				    title:{ text: "Current Month Summary"},
+				    exportFileName: "Pie Chart",
+				    exportEnabled: true,
+				    animationEnabled: true,
+				    legend:
+				    {
+				      verticalAlign: "bottom",
+				      horizontalAlign: "center"
+				    },
+
+				    data: 
+				    [{       
+				      type: "pie",
+				      showInLegend: true,
+				      toolTipContent: "{name}: <strong>{y}%</strong>",
+				      indexLabel: "{name} {y}%",
+				      dataPoints: 
+				      [
+				        {  y: Math.round((food_holder/sum*100)), name: "Food", exploded: true},
+				        {  y: Math.round((commodity_holder/sum*100)), name: "Commodity"},
+				        {  y: Math.round((clothes_holder/sum*100)), name: "Clothes"},
+				        {  y: Math.round((luxury_holder/sum*100)), name: "Luxury"},
+				        {  y: Math.round((fees_holder/sum*100)),  name: "Utility Fee"},
+				        {  y: Math.round((other_holder/sum*100)),  name: "Others"}
+				      ]}],
+				    
+				  });
+				  chart.render();
 			}
-		});
+		},
+		error: function(j,t,e)
+		{
+				console.log(j); 
+		}
+	});
 
 }
 function drawTable() 
 {
 	
 		var check = "0";
-		var usernames ="John";
+		
 		var datas = {checker:check,username:user}
 		var data = new google.visualization.DataTable();
 		var table = new google.visualization.Table(document.getElementById('tablelist'));
@@ -558,9 +598,9 @@ function drawTable()
 	      },
 	      error: function(j,t,e)
 	      {
-	        console.log(j);
+	        
 	        console.log(t);
-	        console.log(e);
+	      
 	      }
     });
         
