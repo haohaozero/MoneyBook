@@ -13,34 +13,6 @@ if ($conn->connect_error)
 }
 //checker use to check what to do 
 $checker = $_REQUEST['checker'];
-
-
-
-if ($checker == "3")
-{
-  $username_h = $_GET['username'];
-  $getMoney = "SELECT monthly_save FROM money_plan WHERE (username)=('".$username_h."')";
-  $result=mysqli_query($conn,$getMoney);
-  $array = array(); 
-  if (mysqli_num_rows($result) > 0) 
-  {
-      // output data of each row
-      while($row = mysqli_fetch_assoc($result)) 
-      {
-        
-        $array [] = $row;
-
-      }
-       echo json_encode($array);
-  } 
-  else 
-  {
-     
-  }
-
-}
-
-
 if ($checker == "2")
 {
   $CM_h = $_GET['cm'];
@@ -69,7 +41,6 @@ if ($checker == "2")
 
 
 }
-
 //Insert user Transaction intot table---------------------------------------------------
 if ($checker == "1")
 {
@@ -85,7 +56,6 @@ if ($checker == "1")
    echo ($result);
    
 }
-
 //Return Table content for display purpose--------------------------------------------------
 if ($checker == "0")
 {

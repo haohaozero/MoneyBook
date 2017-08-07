@@ -23,13 +23,13 @@ require_once("config.php");
 			$row = $result -> fetch_assoc();
 			if($row["password"]==$password){
 					//echo $password." is correct.<br/>";
-					echo 1;
+					echo json_encode(array("result" => true));
 			}
 			else{
-			echo 0;
+			echo json_encode(array("result" => false));
 			}
 		}else{
-			echo 0;
+			echo json_encode(array("result" => false));
 		}
 	}
 	mysqli_close($conn);

@@ -1,7 +1,7 @@
-
+var user;
 window.onload = function () 
 {
-	var user = window.location.hash.substring(1);
+	user = window.location.hash.substring(1);
 	var type_Input = document.getElementById("Type");
 	var amount_Input = document.getElementById("Amount");
 	var category_Input = document.getElementById("Category");
@@ -21,6 +21,8 @@ window.onload = function ()
 	google.charts.load('current', {'packages':['table']});
 	google.charts.setOnLoadCallback(drawTable);
 	drawPieChart();
+	
+	move();
 	//Load chart$table end=--------------------------------------------------------------------------------
 	//UI Preconfig
 
@@ -132,6 +134,7 @@ window.onload = function ()
 			{
 				
 				submit_IE();
+				drawPieChart();
     			google.charts.setOnLoadCallback(drawTable); 
 			}
 			
@@ -213,36 +216,167 @@ window.onload = function ()
 ////|||||||||||||||||||||||||||||||||/////////
 ////vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv/////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function move() 
 {
     var elem = document.getElementById("myBar"); 
-    var width = 10;
-    var id = setInterval(frame, 10);
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++; 
-            elem.style.width = width + '%'; 
-            elem.innerHTML = width * 1 + '%';
-        }
-    }
+    var width = 0;
+
+    var TD = new Date();
+	var CM = (TD.getMonth()+1);
+	var check = "2";
+	var usernames ="John";
+	var datas = {checker:check,username:user,cm:CM}
+	var sum=0;
+	$.ajax({
+	      url: "http://localhost/money_book_be/BackEnd.php",
+	      type: "GET",
+	      async: true,
+	      data: datas,
+	      cache: false,
+	      dataType : "json",
+	   	  
+	      success: function(returndata)
+	      { 
+     		var clothes_holder=0;
+     		var food_holder=0;
+     		var fees_holder=0;
+     		var luxury_holder=0;
+     		var commodity_holder=0;
+     		var other_holder=0;
+     		
+        	for (var i=0;i<returndata.length;i++)
+        	{	
+        		switch(returndata[i].category)
+        		{
+        			case 'Clothes':
+        						clothes_holder+=parseInt(returndata[i].amount);
+        				break;
+        			case 'Food':
+        						food_holder+=parseInt(returndata[i].amount);
+        				break;
+        			case 'Fees':
+        						fees_holder+=parseInt(returndata[i].amount);
+        				break;
+        			case 'Luxury':
+        						luxury_holder+=parseInt(returndata[i].amount);
+        				break;
+        			case 'Commodity':
+        						commodity_holder+=parseInt(returndata[i].amount);
+        				break;
+        			case 'Other':
+        						other_holder+=parseInt(returndata[i].amount);
+        				break;
+        			
+        		}
+        	}
+        	sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
+
+        		 var check2 ="3";
+          		 var datas2 = {checker:check2,username:usernames}
+          		 var money=0;
+		          $.ajax({
+			      url: "http://localhost/money_book_be/BackEnd.php",
+			      type: "GET",
+			      async: true,
+			      data: datas2,
+			      cache: false,
+			      dataType : "json",
+			   	  
+			      success: function(returndata)
+			      { 
+		     		
+		     		
+		        	for (var i=0;i<returndata.length;i++)
+		        	{	
+		        		money=parseInt(returndata[i].monthly_save);
+		        	}
+		        	var id = setInterval(frame, 50);
+				    function frame() 
+				    {
+				        if (width >= 100)
+				         {
+				            clearInterval(id);
+				        } 
+				        else 
+				        {
+				        	
+				            	
+				            	if(width==(Math.round(sum/money*100)))
+				            	{
+				            		return;
+
+				            	}
+				            	else
+				            	{
+
+				            		width++; 
+				        	    	elem.style.width = width + '%'; 
+				            		
+				            		if(width>=0&&width<=60)
+				            		{
+				            			elem.style.backgroundColor = "#4CAF50";
+				            			elem.innerHTML = width * 1 + '%'+'Good!';
+				            		}
+				            		else if(width>60&&width<=70)
+				            		{
+				            			elem.style.backgroundColor = "blue";
+				            			elem.innerHTML = width * 1 + '%'+'   Control Youself!';
+				            		}
+				            		else if(width>70&&width<=84)
+				            		{
+				            			elem.style.backgroundColor = "orange";
+				            			elem.innerHTML = width * 1 + '%'+'   Warning!';
+				            		}
+				            		else if(width>84&&width<=99)
+				            		{
+				            			elem.style.backgroundColor = "red";
+				            			elem.innerHTML = width * 1 + '%'+'   StayHome!';
+				            		}
+				            		else
+				            		{
+				            			elem.style.backgroundColor = "red";
+				            			elem.innerHTML = width * 1 + '%'+'   OverSpend!';
+				            		}
+
+				            	}
+
+				        }
+				    }
+		        	
+				  },
+				  error: function(j,t,e)
+				  {
+					console.log(j); 
+				  }
+				});
+        	
+			},
+			 error: function(j,t,e)
+			{
+				//console.log(j); 
+			}
+		});
+	
+
+
+    
+    
 }
 function plan()
 {
-	
+	var usernames ="John";
     var today= new Date();
    	var today_date= today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   //checker 1 means to insert transaction into database
-    var datas = {username: user,goal: goal_Input.value,time: goalTime_Input.value,date: today_date}
-    console.log(datas);
+    var datas = {username:user,goal: goal_Input.value,time: goalTime_Input.value,date: today_date}
+    
     $.ajax({
       url: "http://localhost/money_plan.php",
       type: "POST",
       async: true,
       data: datas,
       cache: false,
-      //dataType: "json",
       success: function(data)
       {
           
@@ -261,9 +395,9 @@ function submit_IE()
     var usernames = "John";
     
   //checker 1 means to insert transaction into database
-    var datas = {checker:check,username:usernames,type: type_Input.value,category:category_Input.value,amount:amount_Input.value,date_of_spend: transactionDate_Input.value}
+    var datas = {checker:check,username:user,type: type_Input.value,category:category_Input.value,amount:amount_Input.value,date_of_spend: transactionDate_Input.value}
     $.ajax({
-      url: "http://localhost/BackEnd.php",
+      url: "http://localhost/money_book_be/BackEnd.php",
       type: "POST",
       async: true,
       data: datas,
@@ -288,13 +422,13 @@ function drawPieChart()
 	var CM = (TD.getMonth()+1);
 	var check = "2";
 	var usernames ="John";
-	var datas = {checker:check,username:usernames,cm:CM}
+	var datas = {checker:check,username:user,cm:CM}
 	$.ajax({
-	      url: "http://localhost/BackEnd.php",
+	      url: "http://localhost/money_book_be/BackEnd.php",
 	      type: "GET",
 	      async: true,
 	      data: datas,
-	      
+	      cache: false,
 	      dataType : "json",
 	   	  
 	      success: function(returndata)
@@ -356,12 +490,12 @@ function drawPieChart()
 			      indexLabel: "{name} {y}%",
 			      dataPoints: 
 			      [
-			        {  y: (food_holder/sum*100), name: "Food", exploded: true},
-			        {  y: (commodity_holder/sum*100), name: "Commodity"},
-			        {  y: (clothes_holder/sum*100), name: "Clothes"},
-			        {  y: (luxury_holder/sum*100), name: "Luxury"},
-			        {  y: (fees_holder/sum*100),  name: "Utility Fee"},
-			        {  y: (other_holder/sum*100),  name: "Others"}
+			        {  y: Math.round((food_holder/sum*100)), name: "Food", exploded: true},
+			        {  y: Math.round((commodity_holder/sum*100)), name: "Commodity"},
+			        {  y: Math.round((clothes_holder/sum*100)), name: "Clothes"},
+			        {  y: Math.round((luxury_holder/sum*100)), name: "Luxury"},
+			        {  y: Math.round((fees_holder/sum*100)),  name: "Utility Fee"},
+			        {  y: Math.round((other_holder/sum*100)),  name: "Others"}
 			      ]}],
 			    
 			  });
@@ -371,7 +505,7 @@ function drawPieChart()
 			{
 				console.log(j); 
 			}
-			});
+		});
 
 }
 function drawTable() 
@@ -379,7 +513,7 @@ function drawTable()
 	
 		var check = "0";
 		var usernames ="John";
-		var datas = {checker:check,username:usernames}
+		var datas = {checker:check,username:user}
 		var data = new google.visualization.DataTable();
 		var table = new google.visualization.Table(document.getElementById('tablelist'));
         table.draw(data, {showRowNumber: true, width: '89%', height: '400px'});
@@ -389,10 +523,11 @@ function drawTable()
         data.addColumn('string', 'Date');
         table.draw(data, {showRowNumber: true, width: '89%', height: '400px'});
 		$.ajax({
-	      url: "http://localhost/BackEnd.php",
+	      url: "http://localhost/money_book_be/BackEnd.php",
 	      type: "GET",
 	      async: true,
 	      data: datas,
+	      cache: false,
 	      dataType : "json",
 	   	  
 	      success: function(returndata)

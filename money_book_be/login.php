@@ -1,10 +1,9 @@
 <?php
 require_once("config.php");
-	//$username = "haohaozero";
-	//$password = "123456";
+	
 	$username = $_POST["username"];
 	$password = $_POST["password"];
-	//echo $username.$password;
+	
 	$valid = true;
 	$invalid = false;
 	$conn=mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
@@ -25,7 +24,8 @@ require_once("config.php");
 					//echo $password." is correct.<br/>";
 					echo json_encode(array("result" => true));
 			}
-			else{
+			else
+			{
 			echo json_encode(array("result" => false));
 			}
 		}else{
