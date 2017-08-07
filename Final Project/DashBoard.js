@@ -15,7 +15,7 @@ window.onload = function ()
 	var planform = document.getElementById("MP_InputRetangle");
 	var MP_Reset_button = document.getElementById("MP_Reset");
 	var IE_Reset_button = document.getElementById("IE_Reset");
-	
+	var detail_button = document.getElementById("detail");
 	
 	//Load the table%chart
 	google.charts.load('current', {'packages':['table']});
@@ -99,6 +99,11 @@ window.onload = function ()
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////All Buttons/////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+  detail_button.addEventListener("click",function(event)
+  {
+  		
+  		window.location.href = "money_plan.html#"+user;
+  });
   MP_Reset_button.addEventListener("click",function(event)
   {
   		goal_Input.style.borderColor = "";
