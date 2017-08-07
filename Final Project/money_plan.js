@@ -1,8 +1,72 @@
 
 window.onload = function () 
 {
-  var username = window.location.hash.substring(1);
-  console.log(username);
+  // var username = window.location.hash.substring(1);
+  // console.log(username);
+  var food, commodity, clothes, luxury, utility, other,total;
+  var input_name = "John";
+  console.log(input_name);
+  var data={username: input_name};
+      $.post( "http://localhost/money_book_be/get_money_plan.php", data,
+        function( result ) {
+          var pass = JSON.parse(result);
+          if(pass.status == "ok"){
+          food = parseInt(pass.food);
+          commodity = parseInt(pass.commodity);
+          clothes = parseInt(pass.clothes);
+          luxury = parseInt(pass.luxury);
+          utility = parseInt(pass.utility);
+          other = parseInt(pass.other);
+          total = parseInt(pass.month_total);
+        }
+      });
+
+    var clothes_holder=0;
+    var food_holder=0;
+    var fees_holder=0;
+    var luxury_holder=0;
+    var commodity_holder=0;
+    var other_holder=0;
+    var sum=0;    
+  var dat2s= {username:input_name};
+    $.post( "http://localhost/money_book_be/get_spend_total.php", data,
+        function( result ) {
+          var returndata = JSON.parse(result);
+          for (var i=0;i<returndata.length;i++)
+          {
+            console.log(returndata[i]);
+            switch(returndata[i].category)
+            {
+              case 'Clothes':
+                    clothes_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Food':
+                    food_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Fees':
+                    fees_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Luxury':
+                    luxury_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Commodity':
+                    commodity_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Other':
+                    other_holder+=parseInt(returndata[i].amount);
+                break;
+            }
+          }
+          sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
+          console.log(food_holder);
+          console.log(clothes_holder);
+          console.log(fees_holder);
+          console.log(luxury_holder);
+          console.log(commodity_holder);
+          console.log(other_holder);
+          console.log(sum);
+      });
+
   var chart = new CanvasJS.Chart("chartContainer",
   {
     title:{
@@ -23,8 +87,8 @@ window.onload = function ()
       toolTipContent: "{name}: <strong>{y}%</strong>",
       indexLabel: "{name} {y}%",
       dataPoints: [
-        {  y: 35, name: "Foodh", exploded: true},
-        {  y: 20, name: "Commodity"},
+        {  y: 75, name: "Food", exploded: true},
+        {  y: 35, name: "Commodity"},
         {  y: 18, name: "Clothes"},
         {  y: 15, name: "Luxury"},
         {  y: 5,  name: "Utility Fee"},
@@ -36,6 +100,7 @@ window.onload = function ()
   }
   });
   chart.render();
+
       var chart2 = new CanvasJS.Chart("chartContainer2",
   {
     title:{
@@ -70,6 +135,142 @@ window.onload = function ()
   });
   chart2.render();
 
+  var chart3 = new CanvasJS.Chart("chartContainer3",
+  {
+    title:{
+      text: "Summary of Spends"
+    },
+    exportFileName: "Pie Chart",
+    exportEnabled: true,
+                animationEnabled: true,
+    legend:{
+      verticalAlign: "bottom",
+      horizontalAlign: "center"
+    },
+
+    data: [
+    {       
+      type: "pie",
+      showInLegend: true,
+      toolTipContent: "{name}: <strong>{y}%</strong>",
+      indexLabel: "{name} {y}%",
+      dataPoints: [
+        {  y: 35, name: "Foodh", exploded: true},
+        {  y: 20, name: "Commodity"},
+        {  y: 18, name: "Clothes"},
+        {  y: 15, name: "Luxury"},
+        {  y: 5,  name: "Utility Fee"},
+        {  y: 7,  name: "Other"}
+      ]
+  }
+  ],creditText:{
+    text:""
+  }
+  });
+  chart3.render();
+  
+  var chart4 = new CanvasJS.Chart("chartContainer4",
+  {
+    title:{
+      text: "Summary of Spends"
+    },
+    exportFileName: "Pie Chart",
+    exportEnabled: true,
+                animationEnabled: true,
+    legend:{
+      verticalAlign: "bottom",
+      horizontalAlign: "center"
+    },
+
+    data: [
+    {       
+      type: "pie",
+      showInLegend: true,
+      toolTipContent: "{name}: <strong>{y}%</strong>",
+      indexLabel: "{name} {y}%",
+      dataPoints: [
+        {  y: 35, name: "Foodh", exploded: true},
+        {  y: 20, name: "Commodity"},
+        {  y: 18, name: "Clothes"},
+        {  y: 15, name: "Luxury"},
+        {  y: 5,  name: "Utility Fee"},
+        {  y: 7,  name: "Other"}
+      ]
+  }
+  ],creditText:{
+    text:""
+  }
+  });
+  chart4.render();
+  
+  var chart5 = new CanvasJS.Chart("chartContainer5",
+  {
+    title:{
+      text: "Summary of Spends"
+    },
+    exportFileName: "Pie Chart",
+    exportEnabled: true,
+                animationEnabled: true,
+    legend:{
+      verticalAlign: "bottom",
+      horizontalAlign: "center"
+    },
+
+    data: [
+    {       
+      type: "pie",
+      showInLegend: true,
+      toolTipContent: "{name}: <strong>{y}%</strong>",
+      indexLabel: "{name} {y}%",
+      dataPoints: [
+        {  y: 35, name: "Foodh", exploded: true},
+        {  y: 20, name: "Commodity"},
+        {  y: 18, name: "Clothes"},
+        {  y: 15, name: "Luxury"},
+        {  y: 5,  name: "Utility Fee"},
+        {  y: 7,  name: "Other"}
+      ]
+  }
+  ],creditText:{
+    text:""
+  }
+  });
+  chart5.render();
+  
+  var chart6 = new CanvasJS.Chart("chartContainer6",
+  {
+    title:{
+      text: "Summary of Spends"
+    },
+    exportFileName: "Pie Chart",
+    exportEnabled: true,
+                animationEnabled: true,
+    legend:{
+      verticalAlign: "bottom",
+      horizontalAlign: "center"
+    },
+
+    data: [
+    {       
+      type: "pie",
+      showInLegend: true,
+      toolTipContent: "{name}: <strong>{y}%</strong>",
+      indexLabel: "{name} {y}%",
+      dataPoints: [
+        {  y: 35, name: "Foodh", exploded: true},
+        {  y: 20, name: "Commodity"},
+        {  y: 18, name: "Clothes"},
+        {  y: 15, name: "Luxury"},
+        {  y: 5,  name: "Utility Fee"},
+        {  y: 7,  name: "Other"}
+      ]
+  }
+  ],creditText:{
+    text:""
+  }
+  });
+  chart6.render();
+  
   // var linechart = new CanvasJS.Chart("chartContainers",
   //   {
   //     zoomEnabled: false,

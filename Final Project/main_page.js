@@ -45,14 +45,19 @@ window.onload=function(){
 			    var pass = JSON.parse(result);
 			    // console.log(pass.result);
 
-			    if(pass.result==true){
-			    	console.log("getting to next page");
+			    if(pass.result=="success"){
+			    	// console.log("getting to next page");
 			    	window.location.href = "Dashboard.html#"+input_name;
 			    }   
-			    else{
+			    else if(pass.result == "password incorrect"){
 					password.value = "";
 					password.placeholder = "incorrect password";
-			    } 
+					alert("Password Incorrect");
+			    }else{
+			    	password.value="";
+			    	username.value="";
+			    	alert("Username doesn't exist");
+			    }
 			});
 		
 			    
