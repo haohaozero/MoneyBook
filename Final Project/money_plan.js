@@ -5,8 +5,8 @@ window.onload = function ()
   console.log(username);
 
   var food, commodity, clothes, luxury, utility, other,total;
-  // var input_name = "John";
-  var input_name = username;
+  var input_name = "John";
+  // var input_name = username;
 
   var exit_btn = document.getElementById("exit_btn");
 
