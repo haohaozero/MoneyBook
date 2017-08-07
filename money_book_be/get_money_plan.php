@@ -3,8 +3,8 @@ require_once("config.php");
 	$conn=mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
 	$money_plan_table="money_plan";
 	$user_info_table="user_info";
-	//$username=$_POST["username"];
-	 $username="admin";
+	$username=$_POST["username"];
+	 // $username="admin";
 	$error=mysqli_connect_error();
 	if($error != null){
 		$output = "<p>Unable to connect to database</p>".$error;

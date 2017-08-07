@@ -2,8 +2,8 @@
 require_once("config.php");
 	$conn=mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
 	$table="spend_data";
-	//$username_h = $_GET['username'];
-	$username_h = "John";
+	$username_h = $_GET['username'];
+	// $username_h = "John";
     $getTable  = "SELECT * FROM spend_data WHERE (username)=('".$username_h."')";
     $result=mysqli_query($conn,$getTable);
     $array = array(); 
