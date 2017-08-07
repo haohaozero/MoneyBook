@@ -67,7 +67,7 @@ window.onload = function ()
   });
   goal_Input.addEventListener("input",function(event)
   {
-  	if((isNaN(goal_Input.value))||(goal_Input.value==""))
+  	if((isNaN(goal_Input.value)))
   	{
 			goal_Input.style.borderColor = "#FF0000";
 			goal_Input.style.backgroundColor = "#FF0000";
@@ -80,7 +80,7 @@ window.onload = function ()
   });
   goalTime_Input.addEventListener("input",function(event)
   {
-  	if((isNaN(goalTime_Input.value))||(goalTime_Input.value==""))
+  	if((isNaN(goalTime_Input.value)))
   	{
 			goalTime_Input.style.borderColor = "#FF0000";
 			goalTime_Input.style.backgroundColor = "#FF0000";
@@ -149,25 +149,30 @@ window.onload = function ()
   	{
 			goal_Input.style.borderColor = "#FF0000";
 			goal_Input.style.backgroundColor = "#FF0000";
-			alert("Please Enter a Vaild Number!!");
+			
 
+		if((isNaN(goalTime_Input.value))||(goalTime_Input.value==""))
+  		{
+  			
+  				goalTime_Input.style.borderColor = "#FF0000";
+				goalTime_Input.style.backgroundColor = "#FF0000";
+				alert("Please Enter A Vaild Number For Goal AND Months!!");
+  			
+  		}
+  		else
+  		{
+  			alert("Please Enter A Vaild Number For Goal!!");
+  		}
   	}
   	else
   	{
   		if((isNaN(goalTime_Input.value))||(goalTime_Input.value==""))
   		{
-  			if((parseInt(goalTime_Input.value))<=0)
-  			{
-  				alert("Please a number range from 1-12!");
-  				goalTime_Input.style.borderColor = "#FF0000";
-				goalTime_Input.style.backgroundColor = "#FF0000";
-  			}
-  			else
-  			{
+  			
   				goalTime_Input.style.borderColor = "#FF0000";
 				goalTime_Input.style.backgroundColor = "#FF0000";
 				alert("Please Enter A Vaild of Months!!");
-  			}
+  			
   			
   		}
   		else
@@ -183,14 +188,18 @@ window.onload = function ()
   			{
   				goalTime_Input.style.borderColor = "";
 				goalTime_Input.style.backgroundColor = "";
+			 	
 			 	plan();
-			 	location.href = "money_plan.html";
+			 	
+			 	
+			 	//location.href = "money_plan.html";
   			}
+  			
   		}
   			
   	}
     
-    location.href = "main_page.html";
+    
    
 
 
@@ -378,18 +387,20 @@ function plan()
     var datas = {username:user,goal: goal_Input.value,time: goalTime_Input.value,date: today_date}
     
     $.ajax({
-      url: "http://localhost/money_plan.php",
+      url: "http://localhost/money_book_be/money_plan.php",
       type: "POST",
       async: true,
       data: datas,
       cache: false,
       success: function(data)
       {
-          
+      		move();
+      		
       },
       error: function(e,j,t)
       {  
         console.log(e);
+        
       }
     })
  }     
@@ -599,7 +610,7 @@ function drawTable()
 	      error: function(j,t,e)
 	      {
 	        
-	        console.log(t);
+	        //console.log(t);
 	      
 	      }
     });
