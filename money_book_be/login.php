@@ -1,9 +1,10 @@
 <?php
 require_once("config.php");
-	
+	//$username = "haohaozero";
+	//$password = "123456";
 	$username = $_POST["username"];
 	$password = $_POST["password"];
-	
+	//echo $username.$password;
 	$valid = true;
 	$invalid = false;
 	$conn=mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
@@ -22,14 +23,13 @@ require_once("config.php");
 			$row = $result -> fetch_assoc();
 			if($row["password"]==$password){
 					//echo $password." is correct.<br/>";
-					echo json_encode(array("result" => true));
+					echo json_encode(array("result" => "success"));
 			}
-			else
-			{
-			echo json_encode(array("result" => false));
+			else{
+			echo json_encode(array("result" => "password incorrect"));
 			}
 		}else{
-			echo json_encode(array("result" => false));
+			echo json_encode(array("result" => "username incorrect"));
 		}
 	}
 	mysqli_close($conn);
