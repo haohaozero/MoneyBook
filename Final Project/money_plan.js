@@ -3,73 +3,414 @@ window.onload = function ()
 {
   var username = window.location.hash.substring(1);
   console.log(username);
-  var chart = new CanvasJS.Chart("chartContainer",
-  {
-    title:{
-      text: "Summary of Spends"
-    },
-    exportFileName: "Pie Chart",
-    exportEnabled: true,
-                animationEnabled: true,
-    legend:{
-      verticalAlign: "bottom",
-      horizontalAlign: "center"
-    },
 
-    data: [
-    {       
-      type: "pie",
-      showInLegend: true,
-      toolTipContent: "{name}: <strong>{y}%</strong>",
-      indexLabel: "{name} {y}%",
-      dataPoints: [
-        {  y: 35, name: "Foodh", exploded: true},
-        {  y: 20, name: "Commodity"},
-        {  y: 18, name: "Clothes"},
-        {  y: 15, name: "Luxury"},
-        {  y: 5,  name: "Utility Fee"},
-        {  y: 7,  name: "Other"}
-      ]
-  }
-  ],creditText:{
-    text:""
-  }
+  var food, commodity, clothes, luxury, utility, other,total;
+  // var input_name = "John";
+  var input_name = username;
+
+  var exit_btn = document.getElementById("exit_btn");
+
+  exit_btn.addEventListener("click",function(){
+      console.log("listen to the listner");
+      window.location.href = "Dashboard.html#"+input_name;
   });
-  chart.render();
-      var chart2 = new CanvasJS.Chart("chartContainer2",
-  {
-    title:{
-      text: "Summary of Spends"
-    },
-    exportFileName: "Pie Chart",
-    exportEnabled: true,
-                animationEnabled: true,
-    legend:{
-      verticalAlign: "bottom",
-      horizontalAlign: "center"
-    },
 
-    data: [
-    {       
-      type: "pie",
-      showInLegend: true,
-      toolTipContent: "{name}: <strong>{y}%</strong>",
-      indexLabel: "{name} {y}%",
-      dataPoints: [
-        {  y: 35, name: "Foodh", exploded: true},
-        {  y: 20, name: "Commodity"},
-        {  y: 18, name: "Clothes"},
-        {  y: 15, name: "Luxury"},
-        {  y: 5,  name: "Utility Fee"},
-        {  y: 7,  name: "Other"}
-      ]
-  }
-  ],creditText:{
-    text:""
-  }
-  });
-  chart2.render();
+  console.log(input_name);
+  var clothes_holder=0;
+    var food_holder=0;
+    var fees_holder=0;
+    var luxury_holder=0;
+    var commodity_holder=0;
+    var other_holder=0;
+    var sum=0; 
+  var data={username: input_name};
+      $.post( "http://localhost/money_book_be/get_money_plan.php", data,
+        function( result ) {
+          var pass = JSON.parse(result);
+          if(pass.status == "ok"){
+          food = parseInt(pass.food);
+          commodity = parseInt(pass.commodity);
+          clothes = parseInt(pass.clothes);
+          luxury = parseInt(pass.luxury);
+          utility = parseInt(pass.utility);
+          other = parseInt(pass.other);
+          total = parseInt(pass.month_total);
+          var dat2s= {username:input_name};
+          $.post( "http://localhost/money_book_be/get_spend_total.php", data,
+        function( result ) {
+          var returndata = JSON.parse(result);
+          for (var i=0;i<returndata.length;i++)
+          {
+            
+            switch(returndata[i].category)
+            {
+              case 'Clothes':
+                    clothes_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Food':
+                    food_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Fees':
+                    fees_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Luxury':
+                    luxury_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Commodity':
+                    commodity_holder+=parseInt(returndata[i].amount);
+                break;
+              case 'Other':
+                    other_holder+=parseInt(returndata[i].amount);
+                break;
+            }
+          }
+          sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
+          console.log(food_holder);
+          console.log(clothes_holder);
+          console.log(fees_holder);
+          console.log(luxury_holder);
+          console.log(commodity_holder);
+          console.log(other_holder);
+          console.log(sum);
+            var total_left = total-sum;
+            console.log("total_left:"+total_left);
+            //Draw the graph
+            var chart = new CanvasJS.Chart("chartContainer",
+            {
 
+              title:{
+                text: "Summary of Spends"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "left"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: sum, name: "Used", exploded: true},
+                  {  y: total_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart.render();
+            //graph for food category
+            var food_left = food-food_holder;
+
+            var chart2 = new CanvasJS.Chart("chartContainer2",
+            {
+              title:{
+                text: "Summary of Food Category"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: food_holder, name: "Used", exploded: true},
+                  {  y: food_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart2.render();
+            //graph commodity 
+            var commodity_left = commodity-commodity_holder;
+
+
+              var chart3 = new CanvasJS.Chart("chartContainer3",
+            {
+              title:{
+                text: "Summary of Commodity Spending"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: commodity_holder, name: "Used", exploded: true},
+                  {  y: commodity_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart3.render();
+
+            // graph clothes portion
+            var clothes_left = clothes - clothes_holder;
+            var chart4 = new CanvasJS.Chart("chartContainer4",
+            {
+              title:{
+                text: "Summary of Clothes Spending"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: clothes_holder, name: "Used", exploded: true},
+                  {  y: clothes_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart4.render();
+            //utility graph
+            var luxury_left = luxury - luxury_holder;
+            var chart5 = new CanvasJS.Chart("chartContainer5",
+            {
+              title:{
+                text: "Summary of Luxury Spending"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: luxury_holder, name: "Used", exploded: true},
+                  {  y: luxury_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart5.render();
+
+            var utility_left = utility - fees_holder;
+            var chart6 = new CanvasJS.Chart("chartContainer6",
+            {
+              title:{
+                text: "Summary of Utility Fee Spending"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: fees_holder, name: "Used", exploded: true},
+                  {  y: utility_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart6.render();
+
+              var other_left = other - other_holder;
+              var chart7 = new CanvasJS.Chart("chartContainer7",
+            {
+              title:{
+                text: "Summary of Utility Fee Spending"
+              },
+              exportFileName: "Pie Chart",
+              exportEnabled: true,
+                          animationEnabled: true,
+              legend:{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+              },
+
+              data: [
+              {       
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{name}: <strong>{y}</strong>",
+                indexLabel: "{name} {y}",
+                dataPoints: [
+                  {  y: other_holder, name: "Used", exploded: true},
+                  {  y: other_left, name: "Remain of the Month"}
+                ]
+            }
+            ],creditText:{
+              text:""
+            }
+            });
+            chart7.render();
+
+            });
+            
+        }
+      });
+
+       
+
+    
+      
+
+  
+  
+  // var chart4 = new CanvasJS.Chart("chartContainer4",
+  // {
+  //   title:{
+  //     text: "Summary of Spends"
+  //   },
+  //   exportFileName: "Pie Chart",
+  //   exportEnabled: true,
+  //               animationEnabled: true,
+  //   legend:{
+  //     verticalAlign: "bottom",
+  //     horizontalAlign: "center"
+  //   },
+
+  //   data: [
+  //   {       
+  //     type: "pie",
+  //     showInLegend: true,
+  //     toolTipContent: "{name}: <strong>{y}%</strong>",
+  //     indexLabel: "{name} {y}%",
+  //     dataPoints: [
+  //       {  y: 35, name: "Foodh", exploded: true},
+  //       {  y: 20, name: "Commodity"},
+  //       {  y: 18, name: "Clothes"},
+  //       {  y: 15, name: "Luxury"},
+  //       {  y: 5,  name: "Utility Fee"},
+  //       {  y: 7,  name: "Other"}
+  //     ]
+  // }
+  // ],creditText:{
+  //   text:""
+  // }
+  // });
+  // chart4.render();
+  
+  // var chart5 = new CanvasJS.Chart("chartContainer5",
+  // {
+  //   title:{
+  //     text: "Summary of Spends"
+  //   },
+  //   exportFileName: "Pie Chart",
+  //   exportEnabled: true,
+  //               animationEnabled: true,
+  //   legend:{
+  //     verticalAlign: "bottom",
+  //     horizontalAlign: "center"
+  //   },
+
+  //   data: [
+  //   {       
+  //     type: "pie",
+  //     showInLegend: true,
+  //     toolTipContent: "{name}: <strong>{y}%</strong>",
+  //     indexLabel: "{name} {y}%",
+  //     dataPoints: [
+  //       {  y: 35, name: "Foodh", exploded: true},
+  //       {  y: 20, name: "Commodity"},
+  //       {  y: 18, name: "Clothes"},
+  //       {  y: 15, name: "Luxury"},
+  //       {  y: 5,  name: "Utility Fee"},
+  //       {  y: 7,  name: "Other"}
+  //     ]
+  // }
+  // ],creditText:{
+  //   text:""
+  // }
+  // });
+  // chart5.render();
+  
+  // var chart6 = new CanvasJS.Chart("chartContainer6",
+  // {
+  //   title:{
+  //     text: "Summary of Spends"
+  //   },
+  //   exportFileName: "Pie Chart",
+  //   exportEnabled: true,
+  //               animationEnabled: true,
+  //   legend:{
+  //     verticalAlign: "bottom",
+  //     horizontalAlign: "center"
+  //   },
+
+  //   data: [
+  //   {       
+  //     type: "pie",
+  //     showInLegend: true,
+  //     toolTipContent: "{name}: <strong>{y}%</strong>",
+  //     indexLabel: "{name} {y}%",
+  //     dataPoints: [
+  //       {  y: 35, name: "Foodh", exploded: true},
+  //       {  y: 20, name: "Commodity"},
+  //       {  y: 18, name: "Clothes"},
+  //       {  y: 15, name: "Luxury"},
+  //       {  y: 5,  name: "Utility Fee"},
+  //       {  y: 7,  name: "Other"}
+  //     ]
+  // }
+  // ],creditText:{
+  //   text:""
+  // }
+  // });
+  // chart6.render();
+
+  
   // var linechart = new CanvasJS.Chart("chartContainers",
   //   {
   //     zoomEnabled: false,
