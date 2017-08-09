@@ -139,6 +139,7 @@ window.onload = function ()
 			{
 				
 				submit_IE();
+				move();
 				drawPieChart();
     			google.charts.setOnLoadCallback(drawTable); 
 			}

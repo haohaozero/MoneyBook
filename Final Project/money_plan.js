@@ -23,41 +23,6 @@ window.onload = function ()
     var commodity_holder=0;
     var other_holder=0;
     var sum=0; 
-          // var data_food = new google.visualization.DataTable();
-          // data_food.addColumn('string', 'Type');
-          // data_food.addColumn('string', 'Amount');
-          // data_food.addColumn('string', 'Category');
-          // data_food.addColumn('string', 'Date');
-          // var data_commodity = new google.visualization.DataTable();
-          // data_commodity.addColumn('string', 'Type');
-          // data_commodity.addColumn('string', 'Amount');
-          // data_commodity.addColumn('string', 'Category');
-          // data_commodity.addColumn('string', 'Date');
-          // var data_clothes = new google.visualization.DataTable();
-          // data_clothes.addColumn('string', 'Type');
-          // data_clothes.addColumn('string', 'Amount');
-          // data_clothes.addColumn('string', 'Category');
-          // data_clothes.addColumn('string', 'Date');
-          // var data_luxury = new google.visualization.DataTable();
-          // data_luxury.addColumn('string', 'Type');
-          // data_luxury.addColumn('string', 'Amount');
-          // data_luxury.addColumn('string', 'Category');
-          // data_luxury.addColumn('string', 'Date');
-          // var data_food = new google.visualization.DataTable();
-          // data_food.addColumn('string', 'Type');
-          // data_food.addColumn('string', 'Amount');
-          // data_food.addColumn('string', 'Category');
-          // data_food.addColumn('string', 'Date');
-          // var data_food = new google.visualization.DataTable();
-          // data_food.addColumn('string', 'Type');
-          // data_food.addColumn('string', 'Amount');
-          // data_food.addColumn('string', 'Category');
-          // data_food.addColumn('string', 'Date');
-          var col_type;
-          var col_amount;
-          var col_category;
-          var col_date;
-          
   var data={username: input_name};
       $.post( "http://localhost/money_book_be/get_money_plan.php", data,
         function( result ) {
@@ -70,17 +35,10 @@ window.onload = function ()
           utility = parseInt(pass.utility);
           other = parseInt(pass.other);
           total = parseInt(pass.month_total);
-          var TD = new Date();
-          var CM = (TD.getMonth()+1);
-          console.log(CM);
-          var data2= {username:input_name, cm: CM};
-          $.post( "http://localhost/money_book_be/get_spend_total.php", data2,
+          var dat2s= {username:input_name};
+          $.post( "http://localhost/money_book_be/get_spend_total.php", data,
         function( result ) {
-
-          if(result!=null){
-            // console.log(result);
           var returndata = JSON.parse(result);
-          
           for (var i=0;i<returndata.length;i++)
           {
             
@@ -107,15 +65,18 @@ window.onload = function ()
             }
           }
           sum=clothes_holder+food_holder+fees_holder+luxury_holder+commodity_holder+other_holder;
-          console.log(food_holder);
-          console.log(clothes_holder);
-          console.log(fees_holder);
-          console.log(luxury_holder);
-          console.log(commodity_holder);
-          console.log(other_holder);
-          console.log(sum);
-        }
+          // console.log(food_holder);
+          // console.log(clothes_holder);
+          // console.log(fees_holder);
+          // console.log(luxury_holder);
+          // console.log(commodity_holder);
+          // console.log(other_holder);
+          // console.log(sum);
             var total_left = total-sum;
+            if (total_left<0)
+            {
+              total_left=0;
+            }
             console.log("total_left:"+total_left);
             //Draw the graph
             var chart = new CanvasJS.Chart("chartContainer",
@@ -150,7 +111,10 @@ window.onload = function ()
             chart.render();
             //graph for food category
             var food_left = food-food_holder;
-
+            if (food_left<0)
+            {
+              food_left=0;
+            }
             var chart2 = new CanvasJS.Chart("chartContainer2",
             {
               title:{
@@ -182,7 +146,10 @@ window.onload = function ()
             chart2.render();
             //graph commodity 
             var commodity_left = commodity-commodity_holder;
-
+            if(commodity_left<0)
+            {
+              commodity_left = 0;
+            }
 
               var chart3 = new CanvasJS.Chart("chartContainer3",
             {
@@ -216,6 +183,10 @@ window.onload = function ()
 
             // graph clothes portion
             var clothes_left = clothes - clothes_holder;
+            if(clothes_left<0)
+            {
+              clothes_left = 0;
+            }
             var chart4 = new CanvasJS.Chart("chartContainer4",
             {
               title:{
@@ -247,6 +218,9 @@ window.onload = function ()
             chart4.render();
             //utility graph
             var luxury_left = luxury - luxury_holder;
+            if(luxury_left <0){
+              luxury_left = 0;
+            }
             var chart5 = new CanvasJS.Chart("chartContainer5",
             {
               title:{
@@ -278,6 +252,9 @@ window.onload = function ()
             chart5.render();
 
             var utility_left = utility - fees_holder;
+            if(utility_left<0){
+              utility_left = 0;
+            }
             var chart6 = new CanvasJS.Chart("chartContainer6",
             {
               title:{
@@ -309,6 +286,9 @@ window.onload = function ()
             chart6.render();
 
               var other_left = other - other_holder;
+              if(other_left<0){
+                other_left =0;
+              }
               var chart7 = new CanvasJS.Chart("chartContainer7",
             {
               title:{

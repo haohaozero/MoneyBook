@@ -5,7 +5,8 @@ window.onload=function(){
 	var username = document.getElementById("username");
 	var password = document.getElementById("password");
 	
-	loginbtn.addEventListener("click",function(event){
+	loginbtn.addEventListener("click",function(event)
+	{
 
 		var input_name = username.value;
 		var input_pw  = password.value;
@@ -63,15 +64,7 @@ window.onload=function(){
 			    
 			}
 			
-			// console.log(data);
-			// $.ajax({ url: 'money_book_be/login.php',
-   //       dataType:'json',
-   //       type: 'post',
-   //       data: data,
-   //   	 success: function(result){
-   //   	 	alert(result);
-   //   	 }});
-				
+		
 		
 		
 		

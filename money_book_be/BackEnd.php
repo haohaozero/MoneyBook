@@ -82,8 +82,8 @@ if ($checker == "1")
   $category_h= $_POST['category'];
   $date_h= $_POST['date_of_spend'];
 
-  $usernames ="John";
-  $transaction = "INSERT INTO spend_data(username,type,category,amount,date_of_spend)VALUES('".$usernames."','".$type_h."','".$category_h."','".$amount_h."','".$date_h."')"; 
+ 
+  $transaction = "INSERT INTO spend_data(username,type,category,amount,date_of_spend)VALUES('".$username_h."','".$type_h."','".$category_h."','".$amount_h."','".$date_h."')"; 
    $result=mysqli_query($conn,$transaction);
    echo ($result);
    

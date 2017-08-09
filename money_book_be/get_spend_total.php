@@ -3,10 +3,8 @@ require_once("config.php");
 	$conn=mysqli_connect(DBHOST,DBUSER,DBPASS,DBNAME);
 	$table="spend_data";
 	$username_h = $_POST["username"];
-	$CM_h = $_POST["cm"];
 	// $username_h = "John";
-	// $CM_h = 8;
-    $getTable  = "SELECT * FROM spend_data WHERE MONTH((date_of_spend))=('".$CM_h."')"."AND (type)='Expense'"."AND (username)=('".$username_h."')";
+    $getTable  = "SELECT * FROM spend_data WHERE (username)=('".$username_h."')";
     $result=mysqli_query($conn,$getTable);
     $array = array(); 
    
